@@ -9,8 +9,9 @@ int mouseInit(MouseInfo *m) {
 	m->device_fd = -1;
 	char *mouse_path[] = {
 		"/dev/input/mice",
-		"/dev/input/event1",
-		"/dev/input/event2",
+		"/dev/input/mouse0",
+		"/dev/input/mouse1",
+		"/dev/input/mouse2",
 		NULL,
 	};
 
