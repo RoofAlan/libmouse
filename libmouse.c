@@ -68,6 +68,7 @@ int mousePollUpdate(MouseInfo *m) {
 	if (m->device_fd < 0)
 		return -1;
 
+	// Get device data
 	char data[3];
 	size_t r = read(m->device_fd, data, sizeof(data));
 	if (r != sizeof(data))
@@ -76,6 +77,7 @@ int mousePollUpdate(MouseInfo *m) {
 	int new_x = m->mouse_x + data[1];
 	int new_y = m->mouse_y - data[2];
 
+	// Check for maxium and minium X
 	if (m->max_x > 0 || m->min_x > 0) {
 		if (new_x < m->min_x) {
 			new_x = m->min_x;
@@ -83,7 +85,8 @@ int mousePollUpdate(MouseInfo *m) {
 			new_x = m->max_x;
 		}
 	}
-	
+
+	// Check for maxium and minium Y
 	if (m->max_y > 0 || m->min_y > 0) {
 		if (new_y < m->min_y) {
 			new_y = m->min_y;
@@ -119,7 +122,7 @@ int mouseWaitPress(MouseInfo *m, int key) {
 		}
 
 		if (mkey == 0)
-			return 0;
+			return 0; // Both are clicked, return
 		mkey = key;
 	}
 
